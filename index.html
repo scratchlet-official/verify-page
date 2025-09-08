@@ -1,0 +1,369 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Scratchlet Verification</title>
+  
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Titan+One&family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #fcfcfe;
+      --card: #ffffff;
+      --accent: #ffc94f;  /* soft yellow from logo */
+      --accent-2: #3dabf4; /* sky blue accent */
+      --text: #1b1f24;
+      --muted: #6b7280;
+      --shadow: 0 10px 25px rgba(0, 0, 0, 0.07);
+      --radius: 18px;
+    }
+    body {
+      margin: 0;
+      font-family: 'Nunito', sans-serif;
+      background: #efa600;
+      color: var(--text);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+    .container {
+      width: 100%;
+      max-width: 880px;
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      overflow: hidden;
+    }
+    .aside {
+      background: linear-gradient(135deg, #fff7e0, #fefdfe);
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .logo .icon {
+      width: 60px;
+      height: 60px;
+      border-radius: 16px;
+      background: #efa600;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 26px;
+      font-weight: bold;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.05);
+      font-family: 'Titan One', cursive;
+    }
+    .logo h1 {
+      font-family: 'Titan One', cursive;
+      font-size: 26px;
+      margin: 0;
+    }
+    .logo p {
+      margin: 2px 0 0;
+      font-size: 14px;
+      color: var(--muted);
+      font-family: 'Nunito', sans-serif;
+    }
+    .desc {
+      margin-top: 20px;
+      font-size: 15px;
+      line-height: 1.5;
+      color: var(--text);
+    }
+    .actions {
+      margin-top: auto;
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .btn {
+      flex: 1;
+      text-align: center;
+      padding: 14px 18px;
+      border: none;
+      border-radius: 12px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: transform 0.1s;
+      font-family: 'Nunito', sans-serif;
+    }
+    .btn:active {
+      transform: translateY(1px);
+    }
+    .btn-discord {
+      background: #efa600;
+      color: white;
+    }
+    .btn-register {
+      background: transparent;
+      color: #efa600;
+      border: 2px dashed #efa600;
+    }
+    .invite {
+      margin-top: 20px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .invite input {
+      width: calc(100% - 80px);
+      padding: 10px 12px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 14px;
+      font-family: 'Nunito', sans-serif;
+    }
+    .invite button {
+      padding: 10px 14px;
+      border: none;
+      background: #efa600;
+      color: white;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 14px;
+      font-family: 'Nunito', sans-serif;
+      margin-left: 8px;
+    }
+    .main {
+      padding: 30px;
+      font-family: 'Nunito', sans-serif;
+    }
+    .card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 24px;
+      box-shadow: none;
+      border: 1px solid #ececec;
+      margin-bottom: 24px;
+    }
+    .title {
+      font-family: 'Titan One', cursive;
+      margin: 0 0 10px;
+      font-size: 24px;
+      color: var(--text);
+    }
+    .subtitle {
+      margin: 0 0 16px;
+      font-size: 14px;
+      color: var(--muted);
+    }
+    .input-row {
+      display: flex;
+      gap: 12px;
+    }
+    .input-row input {
+      flex: 1;
+      padding: 12px 14px;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      font-size: 15px;
+      font-family: 'Nunito', sans-serif;
+    }
+    .input-row button {
+      background: #efa600;
+      color: white;
+      border: none;
+      border-radius: 10px;
+      padding: 12px 16px;
+      cursor: pointer;
+      font-size: 15px;
+      font-family: 'Nunito', sans-serif;
+    }
+    .feedback {
+      margin-top: 16px;
+      font-size: 14px;
+      font-family: 'Nunito', sans-serif;
+    }
+    .feedback.success {
+      color: #1f7d3a;
+    }
+    .feedback.error {
+      color: #c92a2a;
+    }
+    .verified-list {
+      min-height: 50px;
+      font-size: 14px;
+      color: var(--text);
+    }
+    footer {
+      font-size: 13px;
+      color: var(--muted);
+      margin-top: 12px;
+    }
+    @media(max-width: 768px) {
+      .container {
+        grid-template-columns: 1fr;
+      }
+      .aside, .main {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <aside class="aside">
+      <div>
+        <div class="logo">
+          <div class="icon">S</div>
+          <div>
+            <h1>Scratchlet</h1>
+            <p>verification hub</p>
+          </div>
+        </div>
+        <div class="desc">
+          Join our Discord server, then paste your Discord tag or ID below and click “Verify.” You can also register first using the button below.
+        </div>
+      </div>
+      <div>
+        <div class="actions">
+          <button id="btnDiscord" class="btn btn-discord">Verify on Discord</button>
+          <a href="https://scratchlet-official.github.io/register/" target="_blank" rel="noopener" class="btn btn-register">Register</a>
+        </div>
+        <div class="invite">
+          <div>Invite URL:</div>
+          <div style="display: flex; align-items: center; margin-top: 8px;">
+            <input id="inviteLink" value="https://discord.gg/7xVj6mWr" readonly />
+            <button id="btnCopy">Copy</button>
+          </div>
+        </div>
+      </div>
+    </aside>
+    <main class="main">
+      <div class="card">
+        <h2 class="title">Discord Verification</h2>
+        <p class="subtitle">Paste your Discord username (e.g. User#1234) or Discord ID below.</p>
+        <div class="input-row">
+          <input id="inputTag" placeholder="Discord#1234 or numeric ID" />
+          <button id="btnVerify">Verify</button>
+        </div>
+        <div id="feedback" class="feedback"></div>
+      </div>
+      <div class="card">
+        <h3 style="font-family:'Titan One',cursive;">Recently Verified (local)</h3>
+        <div id="verifiedList" class="verified-list">None yet.</div>
+        <footer>Stored locally in your browser.</footer>
+      </div>
+    </main>
+  </div>
+
+  <script>
+    const btnDiscord = document.getElementById("btnDiscord");
+    const btnCopy = document.getElementById("btnCopy");
+    const inputTag = document.getElementById("inputTag");
+    const btnVerify = document.getElementById("btnVerify");
+    const feedback = document.getElementById("feedback");
+    const verifiedList = document.getElementById("verifiedList");
+
+    const inviteURL = "https://discord.gg/7xVj6mWr";
+
+    btnDiscord.addEventListener("click", () => {
+      window.open(inviteURL, "_blank");
+      feedback.textContent = "Discord invite opened — join then paste your tag/ID.";
+      feedback.className = "feedback success";
+    });
+
+    btnCopy.addEventListener("click", async () => {
+      try {
+        await navigator.clipboard.writeText(inviteURL);
+        feedback.textContent = "Invite link copied!";
+        feedback.className = "feedback success";
+      } catch {
+        feedback.textContent = "Copy failed — please copy manually.";
+        feedback.className = "feedback error";
+      }
+    });
+
+    function renderList() {
+      const list = JSON.parse(localStorage.getItem("verified") || "[]");
+      if (!list.length) {
+        verifiedList.textContent = "None yet.";
+        return;
+      }
+      verifiedList.innerHTML = "";
+      list.forEach(item => {
+        const div = document.createElement("div");
+        div.style.marginBottom = "8px";
+        div.textContent = `${item.tag} — ${new Date(item.time).toLocaleString()}`;
+        verifiedList.append(div);
+      });
+    }
+
+    btnVerify.addEventListener("click", () => {
+      const val = inputTag.value.trim();
+      const idRegex = /^\d{17,20}$/;
+      const tagRegex = /^.+#\d{4,6}$/;
+      if (!val) {
+        feedback.textContent = "Please enter your Discord tag or ID.";
+        feedback.className = "feedback error";
+        return;
+      }
+      if (!(idRegex.test(val) || tagRegex.test(val))) {
+        feedback.textContent = "Invalid format — use Name#1234 or numeric ID.";
+        feedback.className = "feedback error";
+        return;
+      }
+      feedback.textContent = "Looks good! Saved locally.";
+      feedback.className = "feedback success";
+      const list = JSON.parse(localStorage.getItem("verified") || "[]");
+      list.unshift({tag: val, time: new Date().toISOString()});
+      localStorage.setItem("verified", JSON.stringify(list.slice(0, 30)));
+      inputTag.value = "";
+      renderList();
+    });
+
+    renderList();
+  </script>
+<!-- Code injected by live-server -->
+<script>
+	// <![CDATA[  <-- For SVG support
+	if ('WebSocket' in window) {
+		(function () {
+			function refreshCSS() {
+				var sheets = [].slice.call(document.getElementsByTagName("link"));
+				var head = document.getElementsByTagName("head")[0];
+				for (var i = 0; i < sheets.length; ++i) {
+					var elem = sheets[i];
+					var parent = elem.parentElement || head;
+					parent.removeChild(elem);
+					var rel = elem.rel;
+					if (elem.href && typeof rel != "string" || rel.length == 0 || rel.toLowerCase() == "stylesheet") {
+						var url = elem.href.replace(/(&|\?)_cacheOverride=\d+/, '');
+						elem.href = url + (url.indexOf('?') >= 0 ? '&' : '?') + '_cacheOverride=' + (new Date().valueOf());
+					}
+					parent.appendChild(elem);
+				}
+			}
+			var protocol = window.location.protocol === 'http:' ? 'ws://' : 'wss://';
+			var address = protocol + window.location.host + window.location.pathname + '/ws';
+			var socket = new WebSocket(address);
+			socket.onmessage = function (msg) {
+				if (msg.data == 'reload') window.location.reload();
+				else if (msg.data == 'refreshcss') refreshCSS();
+			};
+			if (sessionStorage && !sessionStorage.getItem('IsThisFirstTime_Log_From_LiveServer')) {
+				console.log('Live reload enabled.');
+				sessionStorage.setItem('IsThisFirstTime_Log_From_LiveServer', true);
+			}
+		})();
+	}
+	else {
+		console.error('Upgrade your browser. This Browser is NOT supported WebSocket for Live-Reloading.');
+	}
+	// ]]>
+</script>
+</body>
+</html>
